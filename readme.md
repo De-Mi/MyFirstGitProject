@@ -2,4 +2,4 @@
 
 This is my first Git project
 
-Made a change to readme.md
+Learning git is fun
