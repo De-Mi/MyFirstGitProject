@@ -247,8 +247,13 @@ public class n_Gram {
 	 public static void main(String[] args) throws Exception {
 	        
 	        Configuration conf = new Configuration();
+		conf.set("mapred.compress.map.output", "true");
+  		conf.set("mapred.output.compression.type", "BLOCK"); 
+  		conf.set("mapred.map.output.compression.codec", "org.apache.hadoop.io.compress.GzipCodec");
+		 
 	        Job job = Job.getInstance(conf, "Fivegram");
 	        
+		 
 	        job.setNumMapTasks(10); // 10 mappers
 		job.setNumReduceTasks(10); // 10 reducers
 		 
