@@ -1,0 +1,15 @@
+3 Nodes
+1 master 2 workers
+Time Taken:
+Input: 10000 files
+
+Start time: 2021-11-25 20:14:34
+End Time: 2021-11-26 02:35:41
+
+
+5 Nodes
+1 master 4 workers
+Start Time: 2021-11-29 21:03:11
+
+Reached map 50% at 2021-11-29 22:15:48,091 INFO mapreduce.Job:  map 50% reduce 0%
+2021-11-30 00:04:14,367 INFO mapreduce.Job:  map 100% reduce 100%
