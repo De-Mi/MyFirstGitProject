@@ -249,8 +249,8 @@ public class n_Gram {
 	        Configuration conf = new Configuration();
 	        Job job = Job.getInstance(conf, "Fivegram");
 	        
-	        job.setNumMapTasks(5); // 5 mappers
-		job.setNumReduceTasks(2); // 2 reducers
+	        job.setNumMapTasks(10); // 10 mappers
+		job.setNumReduceTasks(10); // 10 reducers
 		 
 	        job.setJarByClass(n_Gram.class);
 	        
