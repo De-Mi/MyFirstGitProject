@@ -26,6 +26,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.input.CombineTextInputFormat;
 
 
 
@@ -33,7 +34,7 @@ public class n_Gram {
 
 	
 	//MAPREDUCE
-	public static class N_Gram_Mapper extends Mapper<Object, Text, Text, IntWritable> {
+    public static class N_Gram_Mapper extends Mapper<Object, Text, Text, IntWritable> {
 
     private final static IntWritable one = new IntWritable(1);
 
@@ -94,10 +95,17 @@ public class n_Gram {
          
      }
  }
+	//public class CombinedInputFormat extends CombineTextInputFormat{
+	//67108864
  
 	
 	
-	
+	public class CombinedInputFormat extends CombineTextInputFormat{
+		public CombinedInputFormat(){
+		// setting block size to 128mb which is the Cloudera default HDFS size
+			this.setMaxSplitSize(134217728L);
+		}
+	}
 	
 	
 	 public static void main(String[] args) throws Exception {
@@ -121,7 +129,7 @@ public class n_Gram {
 	        job.setCombinerClass(N_Gram_Reducer.class);      //combiner / semi-reducer  
 	        job.setOutputKeyClass(Text.class);
 	        job.setOutputValueClass(IntWritable.class);
-	        
+	        job.setInputFormatClass(CombinedInputFormat.class);
 	        FileInputFormat.addInputPath(job, new Path(args[0]));
 	        FileOutputFormat.setOutputPath(job, new Path(args[1]));
 	        FileOutputFormat.setOutputCompressorClass(job, org.apache.hadoop.io.compress.GzipCodec.class);
