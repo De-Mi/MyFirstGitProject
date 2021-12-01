@@ -166,14 +166,18 @@ public class n_Gram extends Configured implements Tool{
 	 }
 	@Override
 	public int run(String[] args) throws Exception{
-	        Configuration conf = new Configuration();
+	        //Configuration conf = new Configuration();
 	       //conf.setBoolean("mapreduce.map.output.compress", true);
 	        //conf.set("mapreduce.map.output.compress.codec", "org.apache.hadoop.io.compress.SnappyCodec");
-	        conf.set("mapred.output.compress", "true");
+	      /*  conf.set("mapred.output.compress", "true");
 	        conf.set("mapred.output.compression.type", "BLOCK");
 	        conf.set("mapred.output.compression.codec","org.apache.hadoop.io.compress.GzipCodec");
 	        Job job = Job.getInstance(conf, "Fivegram");
-	        
+	        */
+			Job job = Job.getInstance();
+			job.setJobName("n_Gram");
+
+			job.getConfiguration().set("mapreduce.app-submission.cross-platform", "true");
 	        
 	        job.setJarByClass(n_Gram.class);
 	        
@@ -188,9 +192,10 @@ public class n_Gram extends Configured implements Tool{
 	        job.setInputFormatClass(Converger.class);
 	        FileInputFormat.addInputPath(job, new Path(args[0]));
 	        FileOutputFormat.setOutputPath(job, new Path(args[1]));
-	        FileOutputFormat.setOutputCompressorClass(job, org.apache.hadoop.io.compress.GzipCodec.class);
-	        System.exit(job.waitForCompletion(true) ? 0 : 1);
+	      //  FileOutputFormat.setOutputCompressorClass(job, org.apache.hadoop.io.compress.GzipCodec.class);
+	        return job.waitForCompletion(true) ? 0 : 1;
 	        
 	    
 
 }
+	}
