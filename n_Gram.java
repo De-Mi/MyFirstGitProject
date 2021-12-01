@@ -167,11 +167,11 @@ public class n_Gram extends Configured implements Tool{
 	@Override
 	public int run(String[] args) throws Exception{
 	        Configuration conf = new Configuration();
-	       //conf.setBoolean("mapreduce.map.output.compress", true);
-	        //conf.set("mapreduce.map.output.compress.codec", "org.apache.hadoop.io.compress.SnappyCodec");
-	       // conf.set("mapred.output.compress", "true");
-	      //  conf.set("mapred.output.compression.type", "BLOCK");
-	      //  conf.set("mapred.output.compression.codec","org.apache.hadoop.io.compress.GzipCodec");
+	       conf.setBoolean("mapreduce.map.output.compress", true);
+	        conf.set("mapreduce.map.output.compress.codec", "org.apache.hadoop.io.compress.SnappyCodec");
+	       conf.set("mapred.output.compress", "true");
+	        conf.set("mapred.output.compression.type", "BLOCK");
+	        conf.set("mapred.output.compression.codec","org.apache.hadoop.io.compress.GzipCodec");
 	        Job job = Job.getInstance(conf, "Fivegram");
 	        
 		conf.set("mapreduce.input.fileinputformat.split.maxsize","134217728L");
@@ -195,7 +195,7 @@ public class n_Gram extends Configured implements Tool{
 	       // job.setInputFormatClass(Converger.class);
 	        FileInputFormat.addInputPath(job, new Path(args[0]));
 	        FileOutputFormat.setOutputPath(job, new Path(args[1]));
-	      //  FileOutputFormat.setOutputCompressorClass(job, org.apache.hadoop.io.compress.GzipCodec.class);
+	        FileOutputFormat.setOutputCompressorClass(job, org.apache.hadoop.io.compress.GzipCodec.class);
 	        return job.waitForCompletion(true) ? 0 : 1;
 	        
 	    
