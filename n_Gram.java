@@ -175,7 +175,7 @@ public class n_Gram extends Configured implements Tool{
 	        Job job = Job.getInstance(conf, "Fivegram");
 	        
 		conf.set("mapreduce.input.fileinputformat.split.maxsize","134217728L");
-	job.getConfiguration().set(“mapreduce.job.jvm.numtasks”, “-1”);
+	conf.setInt(“mapreduce.job.jvm.numtasks”, -1);
 	job.setInputFormatClass(CombineTextInputFormat.class);
 			//Job job = Job.getInstance();
 			//job.setJobName("n_Gram");
