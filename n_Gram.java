@@ -166,18 +166,21 @@ public class n_Gram extends Configured implements Tool{
 	 }
 	@Override
 	public int run(String[] args) throws Exception{
-	        //Configuration conf = new Configuration();
+	        Configuration conf = new Configuration();
 	       //conf.setBoolean("mapreduce.map.output.compress", true);
 	        //conf.set("mapreduce.map.output.compress.codec", "org.apache.hadoop.io.compress.SnappyCodec");
-	      /*  conf.set("mapred.output.compress", "true");
-	        conf.set("mapred.output.compression.type", "BLOCK");
-	        conf.set("mapred.output.compression.codec","org.apache.hadoop.io.compress.GzipCodec");
+	       // conf.set("mapred.output.compress", "true");
+	      //  conf.set("mapred.output.compression.type", "BLOCK");
+	      //  conf.set("mapred.output.compression.codec","org.apache.hadoop.io.compress.GzipCodec");
 	        Job job = Job.getInstance(conf, "Fivegram");
-	        */
-			Job job = Job.getInstance();
-			job.setJobName("n_Gram");
+	        
+		conf.set("mapreduce.input.fileinputformat.split.maxsize","268435456");
 
-			job.getConfiguration().set("mapreduce.app-submission.cross-platform", "true");
+	job.setInputFormatClass(CombineTextInputFormat.class);
+			//Job job = Job.getInstance();
+			//job.setJobName("n_Gram");
+
+			//job.getConfiguration().set("mapreduce.app-submission.cross-platform", "true");
 	        
 	        job.setJarByClass(n_Gram.class);
 	        
@@ -189,7 +192,7 @@ public class n_Gram extends Configured implements Tool{
 	        job.setCombinerClass(N_Gram_Reducer.class);      //combiner / semi-reducer  
 	        job.setOutputKeyClass(Text.class);
 	        job.setOutputValueClass(IntWritable.class);
-	        job.setInputFormatClass(Converger.class);
+	       // job.setInputFormatClass(Converger.class);
 	        FileInputFormat.addInputPath(job, new Path(args[0]));
 	        FileOutputFormat.setOutputPath(job, new Path(args[1]));
 	      //  FileOutputFormat.setOutputCompressorClass(job, org.apache.hadoop.io.compress.GzipCodec.class);
