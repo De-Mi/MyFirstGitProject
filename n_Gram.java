@@ -49,8 +49,8 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
-import org.idryman.combinefiles.CFRecordReader;
-import org.idryman.combinefiles.FileLineWritable;
+//import org.idryman.combinefiles.CFRecordReader;
+//import org.idryman.combinefiles.FileLineWritable;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
@@ -78,7 +78,7 @@ import org.apache.hadoop.util.LineReader;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-public class n_Gram {
+public class n_Gram extends Configured implements Tool{
 
 	public class Converger extends CombineTextInputFormat{
 		public Converger(){
@@ -162,7 +162,10 @@ public class n_Gram {
 	
 	
 	 public static void main(String[] args) throws Exception {
-	        
+	        ToolRunner.run(new FileMerge(), args);
+	 }
+	@Override
+	public int run(String[] args) throws Exception{
 	        Configuration conf = new Configuration();
 	       //conf.setBoolean("mapreduce.map.output.compress", true);
 	        //conf.set("mapreduce.map.output.compress.codec", "org.apache.hadoop.io.compress.SnappyCodec");
@@ -188,6 +191,6 @@ public class n_Gram {
 	        FileOutputFormat.setOutputCompressorClass(job, org.apache.hadoop.io.compress.GzipCodec.class);
 	        System.exit(job.waitForCompletion(true) ? 0 : 1);
 	        
-	    }
+	    
 
 }
